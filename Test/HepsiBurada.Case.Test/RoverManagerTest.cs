@@ -6,7 +6,7 @@ using Xunit;
 
 namespace HepsiBurada.Case.Test
 {
-    public class UnitTest1
+    public class RoverManagerTest
     {
         [Theory, ClassData(typeof(MoveRoverTest))]
         public void MoveRover_MustAssertTrue_WhenMovedTheCorrectPosition(MoveRoverTestParameter testParameter)
