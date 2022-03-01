@@ -15,15 +15,15 @@ namespace HepsiBurada.Case.Models
         private char _destinationHeading;
         private char[] _commandsList;
 
-        public Rover(int coordX, int coordY, char heading, int finalCoordX, int finalCoordY, char finalHeading)
+        public Rover(int coordX, int coordY, char heading, int? finalCoordX = 0, int? finalCoordY = 0, char? finalHeading = 'N')
         {
             _roverId = new Guid();
             _coordX = coordX;
             _coordY = coordY;
             _heading = heading;
-            _destinationCoordX = finalCoordX;
-            _destinationCoordY = finalCoordY;
-            _destinationHeading = finalHeading;
+            _destinationCoordX = (int)finalCoordX;
+            _destinationCoordY = (int)finalCoordY;
+            _destinationHeading = (char)finalHeading;
         }
 
         public Guid RoverId { get => _roverId;}

@@ -10,18 +10,24 @@ namespace HepsiBurada.Case.Business
 {
     public static class RoverManager
     {
-        public static Rover CreateRover(int coordX, int coordY, char heading, int finalCoordX, int finalCoordY, char finalHeading)
+        public static Rover CreateRover(int coordX, int coordY, char heading, int? finalCoordX, int? finalCoordY, char? finalHeading)
         {
             return new Rover(coordX, coordY, heading, finalCoordX, finalCoordY, finalHeading);
         }
 
         public static Rover MoveRover(Rover rover, string movingCommand)
         {
-            var arr = movingCommand.Split(" ");
+            var commandArray = movingCommand.Split(" ");
 
-            rover.CoordX = Convert.ToInt32(arr[0]);
-            rover.CoordY = Convert.ToInt32(arr[1]);
-            rover.Heading = Convert.ToChar(arr[2]);
+            for (int i = 0; i < commandArray.Length; i++)
+            {
+                if (i == 0)
+                    rover.CoordX = Convert.ToInt32(commandArray[0]);
+                else if (i == 1)
+                    rover.CoordY = Convert.ToInt32(commandArray[1]);
+                else if (i == 2)
+                    rover.Heading = Convert.ToChar(commandArray[2]);
+            }
 
             return rover;
         }
@@ -51,7 +57,7 @@ namespace HepsiBurada.Case.Business
 
                 }
             }
-            
+
             return rover;
         }
 
@@ -65,14 +71,14 @@ namespace HepsiBurada.Case.Business
 
         private static void Move(Rover rover, Compass headingValue)
         {
-            if (headingValue == Compass.North || headingValue == Compass.South)
-            {
+            if (headingValue == Compass.North)
                 rover.CoordY++;
-            }
-            else
-            {
+            else if (headingValue == Compass.East)
                 rover.CoordX++;
-            }
+            else if (headingValue == Compass.South && rover.CoordY > 0)
+                rover.CoordY--;
+            else if (headingValue == Compass.West && rover.CoordX > 0)
+                rover.CoordX--;
         }
 
         private static void RotateRight(Rover rover, Compass headingValue)
